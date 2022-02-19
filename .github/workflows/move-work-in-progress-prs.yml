@@ -37,6 +37,7 @@ jobs:
             // FIXME find out why
             columns.data.forEach(column => {
               if (column.name === 'Work In Progress') {
+                console.log("executed2")
                 work_in_progress = column.id
               }
               
