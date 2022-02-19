@@ -40,9 +40,8 @@ jobs:
               
               github.rest.projects.listCards({
                 column_id: column.id,
-              }).then(res => res.json())
-                .then(cards => {
-                  console.log(cards)
+              }).then(res => {
+                  console.log(res)
                 })
                 .catch(error => {})
             })
