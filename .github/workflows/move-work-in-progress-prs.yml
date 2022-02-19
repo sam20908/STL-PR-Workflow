@@ -33,9 +33,9 @@ jobs:
             
             let work_in_progress = null
             let pr_card = null
-            for (const column in columns.data) {
+            columns.data.forEach(column => {
               console.log(column)
-            }
+            })
             if (work_in_progress === null) {
               return
             }
