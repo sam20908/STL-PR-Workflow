@@ -17,6 +17,6 @@ jobs:
             // This does not rely on finding the project ID
             const projects = await github.rest.projects.listForRepo({
               owner: context.repo.owner,
-              repo: repo.repository
+              repo: context.repo.repo
             })
             console.log(projects)
