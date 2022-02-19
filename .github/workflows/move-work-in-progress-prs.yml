@@ -42,7 +42,7 @@ jobs:
                 column_id: column.id,
               }).then(cards => {
                   cards.data.forEach(card => {
-                    console.log(card.content_url)
+                    console.log(card)
                     console.log(context.payload.issue)
                   })
                 })
