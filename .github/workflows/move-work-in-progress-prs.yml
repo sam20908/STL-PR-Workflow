@@ -29,4 +29,15 @@ jobs:
             const columns = await github.rest.projects.listColumns({
               project_id: code_reviews.id,
             });
-            console.log(columns);
+            const work_in_progress = columns.data.find(column => {
+              return column.name === 'Work In Progress';
+            })
+            if (work_in_progress === undefined) {
+              return // Should not happen, but just for safety
+            }
+
+            const cards = await github.rest.projects.listCards({
+              column_id: work_in_progress.id,
+            });
+            console.log(cards);
+            console.log(context);
