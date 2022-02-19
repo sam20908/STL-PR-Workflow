@@ -42,9 +42,7 @@ jobs:
                 column_id: column.id,
               }).then(res => res.json())
                 .then(cards => {
-                  cards.data.forEach(card => {
-                    console.log(card)
-                  })
+                  console.log(cards)
                 })
                 .catch(error => {})
             })
