@@ -35,7 +35,6 @@ jobs:
             if (work_in_progress === undefined) {
               return
             }
-            console.log(context.payload.issue)
             
             // Find the card of the PR in all columns
             let pr_card = null
@@ -43,14 +42,7 @@ jobs:
              github.rest.projects.listCards({
                 column_id: column.id,
               }).then(cards => {
-                for (const card in cards.data) {
-                  fetch(card.content_url)
-                    .then(res => res.json())
-                    .then(data => {
-                      console.log(data)
-                    })
-                    .catch(error => {})
-                }
+                console.log(cards)
               }).catch(error => {})
             }
             
