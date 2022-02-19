@@ -21,7 +21,7 @@ jobs:
               return project.name === 'Code Reviews';
             })
             if (code_reviews === undefined) {
-              return // Should not happen, but just for safety
+              return
             }
             
             // Find "Work In Progress" column manually by name matching
@@ -33,18 +33,18 @@ jobs:
               return column.name === 'Work In Progress';
             })
             if (work_in_progress === undefined) {
-              return // Should not happen, but just for safety
+              return
             }
             
             // Find the card of the PR in all columns
             const pr_card = columns.data.find(column => {
-              const cards = github.projects.listCards({
+             github.rest.projects.listCards({
                 column_id: column.id,
-              })
-              
-              for (const card in cards) {
-                console.log(card)
-              }
+              }).then(cards => {
+                for (const card in cards) {
+                  console.log(card)
+                }
+              }).catch(error => {})
               
               return undefined // No card for PR found, should not happen
             })
