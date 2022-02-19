@@ -43,7 +43,7 @@ jobs:
               }).then(cards => {
                   cards.data.forEach(card => {
                     console.log(card)
-                    console.log(context.payload.issue)
+                    console.log(context)
                   })
                 })
                 .catch(error => {})
