@@ -30,6 +30,7 @@ jobs:
               project_id: code_reviews.id,
             });
             const work_in_progress = columns.data.find(column => {
+              console.log(column)
               return column.name === 'Work In Progress';
             })
             if (work_in_progress === undefined) {
