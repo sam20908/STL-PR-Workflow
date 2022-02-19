@@ -16,7 +16,7 @@ jobs:
             // Get list of projects and find "Code Reviews" by name
             // This does not rely on finding the project ID
             const projects = await github.rest.projects.listForRepo({
-              context.repository.owner,
-              context.repository
+              owner: context.repo.owner,
+              repo: repo.repository
             })
             console.log(projects)
