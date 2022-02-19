@@ -6,8 +6,8 @@ on:
       - main
 
 jobs:
-  move-pr-to-work-in-progress:
-    if: github.event.comment.body == '/pr mark work-in-progress' && github.event.issue.pull_request
+  move-pr-to-wip:
+    if: github.event.comment.body == '/pr mark wip' && github.event.issue.pull_request
     runs-on: ubuntu-latest
     steps:
       - name: Move To Initial Review
