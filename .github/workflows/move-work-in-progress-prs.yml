@@ -4,7 +4,7 @@ on:
     types: [labeled]
 jobs:
   move-pr-to-work-in-progress:
-    if: github.event.label.name == 'work in progress' && github.event.issue.pull_request
+    if: github.event.label.name == 'work in progress'
     runs-on: ubuntu-latest
     steps:
       - name: Move To Initial Review
