@@ -35,33 +35,33 @@ jobs:
             let pr_card = null
             // FIXME forEach is needed instead of a for loop, otherwise it doesn't work
             // FIXME find out why
+            
+            // Since .then is asynchronous, cannot guarantee work_in_progress is set before
+            // the PR card is found. Just loop through the columns again
             columns.data.forEach(column => {
               if (column.name === 'Work In Progress') {
                 work_in_progress = column.id
               }
-              
+            })
+            
+            // FIXME figure out best way to handle error
+            columns.data.forEach(column => {
               github.rest.projects.listCards({
                 column_id: column.id,
               }).then(cards => {
                   cards.data.forEach(card => {
                     if (card.content_url === context.payload.issue.url) {
                       pr_card = card.id // TODO break out early somehow, avoid extra work
-                      console.log(card)
-                      console.log(pr_card)
+                      
+                      if (work_in_progress !== null) {
+                        github.rest.projects.moveCard({
+                          card_id: pr_card,
+                          position: 'bottom',
+                          column_id: work_in_progress,
+                        }).catch(error => {})
+                      }
                     }
                   })
                 })
                 .catch(error => {})
-            })
-            console.log(work_in_progress === null)
-            console.log(pr_card === null)
-            if (work_in_progress === null || pr_card === null) {
-              return
-            }
-            
-            console.log("asdf")
-            await github.rest.projects.moveCard({
-              card_id: pr_card,
-              position: 'bottom',
-              column_id: work_in_progress,
             })
