@@ -40,8 +40,12 @@ jobs:
               
               github.rest.projects.listCards({
                 column_id: column.id,
-              }).then(res => {
-                  console.log(res)
+              }).then(cards => {
+                  cards.data.forEach(card => {
+                    fetch(card.content_url)
+                      .then(res => console.log(res))
+                      .catch(error => {})
+                  })
                 })
                 .catch(error => {})
             })
