@@ -15,7 +15,7 @@ jobs:
             // This avoids hardcoding the project ID
             const projects = await github.rest.projects.listForRepo({
               owner: context.repo.owner,
-              repo: context.repo.repo
+              repo: context.repo.repo,
             })
             const code_reviews = projects.data.find(project => {
               return project.name === 'Code Reviews';
@@ -35,9 +35,18 @@ jobs:
             if (work_in_progress === undefined) {
               return // Should not happen, but just for safety
             }
-
-            const cards = await github.rest.projects.listCards({
-              column_id: work_in_progress.id,
-            });
-            console.log(cards);
-            console.log(context.payload.issue.pull_request);
+            
+            // Find the card of the PR in all columns
+            const pr_card = columns.data.find(column => {
+              const cards = await github.rest.projects.listCards({
+                column_id: column.id,
+              })
+              
+              for (const card in cards) {
+                console.log(card)
+              }
+              
+              return undefined // No card for PR found, should not happen
+            })
+            
+            
