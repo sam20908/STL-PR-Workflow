@@ -45,7 +45,7 @@ jobs:
               }).then(cards => {
                 for (const card in cards.data) {
                   fetch(card.content_url)
-                    .then(res => return res.json())
+                    .then(res => res.json())
                     .then(data => {
                       console.log(data)
                     })
