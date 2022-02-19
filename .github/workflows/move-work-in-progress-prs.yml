@@ -46,6 +46,8 @@ jobs:
                   cards.data.forEach(card => {
                     if (card.content_url === context.payload.issue.url) {
                       pr_card = card.id // TODO break out early somehow, avoid extra work
+                      console.log(card)
+                      console.log(pr_card)
                     }
                   })
                 })
