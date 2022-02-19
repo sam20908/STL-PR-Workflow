@@ -42,8 +42,11 @@ jobs:
                 column_id: column.id,
               }).then(cards => {
                   cards.data.forEach(card => {
+                    console.log(card)
                     fetch(card.content_url)
-                      .then(res => console.log(res))
+                      .then(res => {
+                        console.log(res)
+                      })
                       .catch(error => {})
                   })
                 })
