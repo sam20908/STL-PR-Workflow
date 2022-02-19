@@ -2,6 +2,9 @@ name: Move PR To Work In Progress
 on:
   pull_request_target:
     types: [labeled]
+  workflow_run:
+    workflows: ["Label PR As Work In Progress"]
+    types: [completed]
 jobs:
   move-pr-to-work-in-progress:
     runs-on: ubuntu-latest
