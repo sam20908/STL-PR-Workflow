@@ -1,6 +1,6 @@
 name: Move PR To Work In Progress
 on:
-  issues:
+  pull_request:
     types: [labeled]
 jobs:
   move-pr-to-work-in-progress:
