@@ -34,7 +34,19 @@ jobs:
             let work_in_progress = null
             let pr_card = null
             columns.data.forEach(column => {
-              console.log(column)
+              if (column.name === 'Work In Progress') {
+                work_in_progress = column
+              }
+              
+              github.rest.projects.listCards({
+                column_id: column.id,
+              }).then(res => res.json())
+                .then(cards => {
+                  cards.data.forEach(card => {
+                    console.log(card)
+                  })
+                })
+                .catch(error => {})
             })
             if (work_in_progress === null) {
               return
