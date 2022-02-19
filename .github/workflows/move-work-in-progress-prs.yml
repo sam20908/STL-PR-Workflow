@@ -59,4 +59,10 @@ jobs:
               card_id: pr_card,
               position: 'bottom',
               column_id: work_in_progress,
-            }).catch(error => {})
+            })
+              .then(asdf => {
+                console.log(asdf)
+              })
+              .catch(error => {
+                console.err(error)
+              })
