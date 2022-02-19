@@ -41,9 +41,7 @@ jobs:
              github.rest.projects.listCards({
                 column_id: column.id,
               }).then(cards => {
-                for (const card in cards.data) {
-                  console.log(card)
-                }
+                console.log(cards)
               }).catch(error => {})
               
               return undefined // No card for PR found, should not happen
