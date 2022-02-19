@@ -11,4 +11,4 @@ jobs:
         with:
           project: Code Reviews
           column: Work In Progress
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token: ${{ secrets.GHPROJECT_TOKEN }}
