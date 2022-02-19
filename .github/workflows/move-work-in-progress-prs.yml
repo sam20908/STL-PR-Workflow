@@ -17,7 +17,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo
             })
-            const code_reviews = data.data.find(project => {
+            const code_reviews = projects.data.find(project => {
               return project.name === 'Code Reviews';
             })
             if (code_reviews === undefined) {
