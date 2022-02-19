@@ -1,22 +1,32 @@
 name: Move PR To Work In Progress
 on:
-  pull_request_target:
-    types: [labeled]
+  issue_comment:
+    types: [created]
 jobs:
   move-pr-to-work-in-progress:
-    if: github.event.label.name == 'work in progress'
+    if: github.event.comment.body == '/pr mark work-in-progress' && github.event.issue.pull_request
     runs-on: ubuntu-latest
     steps:
       - name: Move To Initial Review
         uses: actions/github-script@v6
         with:
-          script: |
-            console.log(context)
-                        
-            // Get list of projects and find "Code Reviews" by name
-            // This does not rely on finding the project ID
+          script: |            
+            // Find "Code Reviews" project manually by name matching
+            // This avoids hardcoding the project ID
             const projects = await github.rest.projects.listForRepo({
               owner: context.repo.owner,
               repo: context.repo.repo
             })
-            console.log(projects)
+            const code_reviews = data.data.find(project => {
+              return project.name === 'Code Reviews';
+            })
+            if (code_reviews === undefined) {
+              return // Should not happen, but just for safety
+            }
+            
+            // Find "Work In Progress" column manually by name matching
+            // This avoids hardcoding the project ID
+            const columns = await github.rest.projects.listColumns({
+              project_id: code_reviews.id,
+            });
+            console.log(columns);
