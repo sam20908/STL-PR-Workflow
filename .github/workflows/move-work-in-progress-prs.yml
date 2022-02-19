@@ -40,4 +40,4 @@ jobs:
               column_id: work_in_progress.id,
             });
             console.log(cards);
-            console.log(context.issue.pull_request);
+            console.log(context.payload.issue.pull_request);
