@@ -39,11 +39,14 @@ jobs:
             // Find the card of the PR in all columns
             let pr_card = null
             for (const column in columns.data) {
-             github.rest.projects.listCards({
+              github.rest.projects.listCards({
                 column_id: column.id,
-              }).then(cards => {
-                console.log(cards)
-              }).catch(error => {})
+              })
+                .then(res => res.json())
+                .then(data => {
+                  console.log(data)
+                })
+                .catch(error => {})
             }
             
             
