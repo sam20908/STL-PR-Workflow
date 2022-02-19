@@ -38,7 +38,7 @@ jobs:
             
             // Find the card of the PR in all columns
             const pr_card = columns.data.find(column => {
-              const cards = await github.rest.projects.listCards({
+              const cards = github.projects.listCards({
                 column_id: column.id,
               })
               
