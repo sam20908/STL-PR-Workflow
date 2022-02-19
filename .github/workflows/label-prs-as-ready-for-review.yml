@@ -2,6 +2,8 @@ name: Label PR As Ready For Review
 on:
   issue_comment:
     types: [created]
+    branch:
+      - main
 jobs:
   label-pr-as-ready-for-review:
     if: github.event.issue.pull_request
@@ -11,4 +13,4 @@ jobs:
         if: github.event.comment.body == '/pr mark ready'
         uses: actions-ecosystem/action-remove-labels@v1
         with:
-          labels: 'work in progress'
+          labels: "work in progress"

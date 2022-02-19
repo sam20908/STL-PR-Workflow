@@ -12,7 +12,7 @@ jobs:
       - name: Move To Initial Review
         uses: actions/github-script@v6
         with:
-          script: |            
+          script: |
             // Find "Code Reviews" project manually by name matching
             // This avoids hardcoding the project ID
             const projects = await github.rest.projects.listForRepo({
@@ -25,19 +25,19 @@ jobs:
             if (code_reviews === undefined) {
               return
             }
-            
+
             // Find "Initial Review" column manually by name matching
             // Also find the card of the PR in all columns
             // This avoids hardcoding the column ID and card ID
             const columns = await github.rest.projects.listColumns({
               project_id: code_reviews.id,
             });
-            
+
             let work_in_progress = null
             let pr_card = null
             // FIXME forEach is needed instead of a for loop, otherwise it doesn't work
             // FIXME find out why
-            
+
             // Since .then is asynchronous, cannot guarantee work_in_progress is set before
             // the PR card is found. Just loop through the columns again
             columns.data.forEach(column => {
@@ -45,7 +45,7 @@ jobs:
                 work_in_progress = column.id
               }
             })
-            
+
             // FIXME figure out best way to handle error
             columns.data.forEach(column => {
               github.rest.projects.listCards({

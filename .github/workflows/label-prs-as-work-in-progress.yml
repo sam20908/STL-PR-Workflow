@@ -2,6 +2,8 @@ name: Label PR As Work In Progress
 on:
   issue_comment:
     types: [created]
+    branch:
+      - main
 jobs:
   label-pr-as-work-in-progress:
     if: github.event.issue.pull_request
@@ -11,4 +13,4 @@ jobs:
         if: github.event.comment.body == '/pr mark work-in-progress'
         uses: actions-ecosystem/action-add-labels@v1
         with:
-          labels: 'work in progress'
+          labels: "work in progress"
