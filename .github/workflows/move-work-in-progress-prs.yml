@@ -40,14 +40,6 @@ jobs:
             let pr_card = null
             for (const column in columns.data) {
               console.log(column)
-              github.rest.projects.listCards({
-                column_id: column.id,
-              })
-                .then(res => res.json())
-                .then(data => {
-                  console.log(data)
-                })
-                .catch(error => {})
             }
             
             
