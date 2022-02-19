@@ -43,14 +43,7 @@ jobs:
               }).then(cards => {
                   cards.data.forEach(card => {
                     console.log(card)
-                    fetch(card.content_url, {
-                      method: 'GET',
-                    })
-                      .then(res => res.json())
-                      .then(issue => {
-                        console.log(issue)
-                      })
-                      .catch(err =r> {})
+                    console.log(context)
                   })
                 })
                 .catch(error => {})
