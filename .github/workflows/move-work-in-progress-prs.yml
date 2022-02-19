@@ -1,7 +1,8 @@
 name: Move PR To Work In Progress
 on:
   issues:
-    types: [labeled]
+    types: 
+      - labeled
 jobs:
   move-pr-to-work-in-progress:
     if: github.event.label.name == 'work in progress'
