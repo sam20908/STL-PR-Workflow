@@ -4,11 +4,11 @@ on:
     types: [created]
 jobs:
   label-pr-as-work-in-progress:
-    if: github.event.issue.pull_request
+    if: ${{ github.event.issue.pull_request }}
     runs-on: ubuntu-latest
     steps:
       - name: Add Work In Progress To PR
-        if: github.event.commented.body == '/pr mark work-in-progress'
+        if: ${{ github.event.commented.body == '/pr mark work-in-progress' }}
         uses: actions-ecosystem/action-add-labels@v1
         with:
           labels: 'work in progress'
