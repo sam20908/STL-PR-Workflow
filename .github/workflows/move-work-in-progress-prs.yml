@@ -39,7 +39,7 @@ jobs:
             
             // Find the card of the PR in all columns
             let pr_card = null
-            columns.data.find(column => {
+            for (const column in columns.data) {
              github.rest.projects.listCards({
                 column_id: column.id,
               }).then(cards => {
@@ -52,8 +52,6 @@ jobs:
                     .catch(error => {})
                 }
               }).catch(error => {})
-              
-              return undefined // No card for PR found, should not happen
-            })
+            }
             
             
