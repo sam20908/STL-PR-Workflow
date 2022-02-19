@@ -8,9 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Add Work In Progress To PR
-        if: github.event.commented.body == '/pr mark work-in-progress'
+        if: github.event.comment.body == '/pr mark work-in-progress'
         uses: actions-ecosystem/action-add-labels@v1
         with:
           labels: 'work in progress'
       - name: Debug
-        run: echo ${{ github.event.commented.body }}
+        run: echo ${{ github.event.comment.body }}
