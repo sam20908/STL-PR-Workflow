@@ -25,22 +25,19 @@ jobs:
             }
             
             // Find "Work In Progress" column manually by name matching
-            // This avoids hardcoding the project ID
+            // Also find the card of the PR in all columns
+            // This avoids hardcoding the column ID and card ID
             const columns = await github.rest.projects.listColumns({
               project_id: code_reviews.id,
             });
-            const work_in_progress = columns.data.find(column => {
-              console.log(column)
-              return column.name === 'Work In Progress';
-            })
-            if (work_in_progress === undefined) {
-              return
-            }
             
-            // Find the card of the PR in all columns
+            let work_in_progress = null
             let pr_card = null
             for (const column in columns.data) {
               console.log(column)
+            }
+            if (work_in_progress === null) {
+              return
             }
             
             
