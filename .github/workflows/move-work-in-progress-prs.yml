@@ -44,9 +44,8 @@ jobs:
                 column_id: column.id,
               }).then(cards => {
                   cards.data.forEach(card => {
-                    console.log(card.content_url)
-                    console.log(context.payload.issue.url)
                     if (card.content_url === context.payload.issue.url) {
+                      console.log("executed")
                       pr_card = card.id // TODO break out early somehow, avoid extra work
                     }
                   })
