@@ -42,6 +42,8 @@ jobs:
             // FIXME figure out best way to handle error
             columns.data.forEach(column => {
               console.log(column.name)
+              console.log(column.name !== 'Initial Review')
+              console.log(column.name !== 'Final Review')
               if (column.name !== 'Initial Review' || column.name !== 'Final Review') {
                 return // no reason to search through other columns and avoids unnecessary API calls
               }
