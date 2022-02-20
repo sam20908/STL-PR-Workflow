@@ -4,6 +4,7 @@ on:
     types: [created]
     branch:
       - main
+
 jobs:
   label-pr-as-ready-for-review:
     if: github.event.comment.body == '/pr mark ready' && github.event.issue.pull_request

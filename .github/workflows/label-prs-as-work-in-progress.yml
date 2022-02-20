@@ -4,6 +4,7 @@ on:
     types: [created]
     branch:
       - main
+
 jobs:
   label-pr-as-wip:
     if: github.event.comment.body == '/pr mark wip' && github.event.issue.pull_request

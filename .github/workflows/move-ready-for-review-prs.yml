@@ -4,6 +4,7 @@ on:
     types: [created]
     branch:
       - main
+
 jobs:
   move-pr-to-initial-review:
     if: github.event.comment.body == '/pr mark ready' && github.event.issue.pull_request
