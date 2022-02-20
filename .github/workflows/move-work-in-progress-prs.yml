@@ -45,12 +45,14 @@ jobs:
               if (column.name !== 'Initial Review' || column.name !== 'Final Review') {
                 return // no reason to search through other columns and avoids unnecessary API calls
               }
+              console.log("proceeded")
 
               github.rest.projects.listCards({
                 column_id: column.id,
               }).then(cards => {
                   cards.data.forEach(card => {
                     if (card.content_url === context.payload.issue.url) {
+                      console.log("moving now")
                       // card is the PR card
 
                       github.rest.projects.moveCard({
