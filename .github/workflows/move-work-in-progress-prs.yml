@@ -27,6 +27,7 @@ jobs:
               return
             }
 
+            console.log("executed1")
             // Find "Work In Progress" column manually by name matching
             // Also find the card of the PR in all columns
             // This avoids hardcoding the column ID and card ID
@@ -39,6 +40,7 @@ jobs:
               return
             }
 
+            console.log("executed2")
             // FIXME figure out best way to handle error
             columns.data.forEach(column => {
               if (column.name !== 'Initial Review' || column.name !== 'Final Review') {
