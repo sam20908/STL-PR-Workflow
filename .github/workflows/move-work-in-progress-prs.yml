@@ -28,7 +28,7 @@ jobs:
             }
 
             // Find "Work In Progress" column manually by name matching
-            // Also find the card of the PR in all columns
+            // Also find the card of the PR in either "Initial Review" or "Final Review"
             // This avoids hardcoding the column ID and card ID
             const columns = await github.rest.projects.listColumns({
               project_id: code_reviews.id,
