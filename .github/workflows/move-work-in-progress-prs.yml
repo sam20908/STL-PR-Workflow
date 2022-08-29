@@ -1,3 +1,6 @@
+# Copyright (c) Microsoft Corporation.
+# SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+
 name: Move PR To Work In Progress
 on:
   issue_comment:
@@ -7,7 +10,7 @@ on:
 
 jobs:
   move-pr-to-wip:
-    if: github.event.comment.body == '/pr mark wip' && github.event.issue.pull_request
+    if: contains(github.event.comment.body, '/pr mark wip') && github.event.issue.pull_request
     runs-on: ubuntu-latest
     steps:
       - name: Move To Work In Progress
@@ -20,10 +23,9 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
             })
-            const code_reviews = projects.data.find(project => {
-              return project.name === 'Code Reviews';
-            })
+            const code_reviews = projects.data.find(project => project.name === 'Code Reviews');
             if (!code_reviews) {
+              console.error("'Code Reviews' project not found!")
               return
             }
 
@@ -36,10 +38,10 @@ jobs:
 
             const work_in_progress = columns.data.find(column => column.name === 'Work In Progress')
             if (!work_in_progress) {
+              console.error("'Work In Progress' column not found!")
               return
             }
 
-            // FIXME figure out best way to handle error
             columns.data.forEach(column => {
               if (column.name !== 'Initial Review' && column.name !== 'Final Review') {
                 return // no reason to search through other columns and avoids unnecessary API calls
@@ -56,9 +58,13 @@ jobs:
                         card_id: card.id,
                         position: 'bottom',
                         column_id: work_in_progress.id,
-                      }).catch(error => {})
+                      }).catch(error => {
+                        console.error("Error occured while moving card to 'Work In Progress': {error}")
+                      })
                     }
                   })
                 })
-                .catch(error => {})
+                .catch(error => {
+                  console.error("Error while fetching cards from column ID " + column.id)
+                })
             })

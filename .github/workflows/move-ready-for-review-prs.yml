@@ -1,3 +1,6 @@
+# Copyright (c) Microsoft Corporation.
+# SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+
 name: Move PR To Initial Review
 on:
   issue_comment:
@@ -7,7 +10,7 @@ on:
 
 jobs:
   move-pr-to-initial-review:
-    if: github.event.comment.body == '/pr mark ready' && github.event.issue.pull_request
+    if: contains(github.event.comment.body, '/pr mark ready') && github.event.issue.pull_request
     runs-on: ubuntu-latest
     steps:
       - name: Move To Initial Review
@@ -20,9 +23,11 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
             })
-            const code_reviews = projects.data.find(project => {
-              return project.name === 'Code Reviews';
-            })
+            const code_reviews = projects.data.find(project => project.name === 'Code Reviews');
+            if (!code_reviews) {
+              console.error("'Code Reviews' project not found!")
+              return
+            }
 
             // Find "Initial Review" column manually by name matching
             // This assumes the card is in "Work In Progress" column
@@ -33,11 +38,13 @@ jobs:
 
             const work_in_progress = columns.data.find(column => column.name === 'Work In Progress')
             if (!work_in_progress) {
+              console.error("'Work In Progress' column not found!")
               return
             }
 
             const initial_review = columns.data.find(column => column.name === 'Initial Review')
             if (!initial_review) {
+              console.error("'Initial Review' column not found!")
               return
             }
 
@@ -46,6 +53,7 @@ jobs:
             })
             const pr_card = work_in_progress_cards.data.find(card => card.content_url === context.payload.issue.url)
             if (!pr_card) {
+              console.error("Corresponding card for PR not found!")
               return
             }
 
@@ -53,4 +61,6 @@ jobs:
               card_id: pr_card.id,
               position: 'bottom',
               column_id: initial_review.id,
-            }).catch(error => {})
+            }).catch(error => {
+              console.error("Error occured while moving card to 'Initial Review': {error}")
+            })
