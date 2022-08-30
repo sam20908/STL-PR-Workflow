@@ -46,10 +46,6 @@ jobs:
               const cards = await github.paginate(github.rest.projects.listCards, {
                 column_id: column.id,
               })
-              if (!cards) {
-                console.error(`Error occured while fetching cards from column ID {column.id}`)
-                return
-              }
 
               const pr_card = cards.find(card => card.content_url === context.payload.issue.url)
               if (!pr_card) {
