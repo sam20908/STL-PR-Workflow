@@ -55,8 +55,11 @@ jobs:
             const pr_card = github.paginate(github.rest.projects.listCards, {
               column_id: work_in_progress.id,
             }).then(cards => {
-              console.log(cards)
-              return cards.find(card => card.content_url === context.payload.issue.url)
+              const card = cards.find(card => card.content_url === context.payload.issue.url)
+              if (card) {
+                done()
+              }
+              return card
             })
             if (!pr_card) {
               console.error("Corresponding card for PR not found!")
