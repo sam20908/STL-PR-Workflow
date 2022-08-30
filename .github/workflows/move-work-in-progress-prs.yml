@@ -57,7 +57,7 @@ jobs:
               }
 
               await github.rest.projects.moveCard({
-                card_id: card.id,
+                card_id: pr_card.id,
                 position: 'bottom',
                 column_id: work_in_progress.id,
               })
