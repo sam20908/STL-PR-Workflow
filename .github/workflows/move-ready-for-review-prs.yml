@@ -23,7 +23,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
             })
-            const code_reviews = projects.data.find(project => project.name === 'Code Reviews');
+            const code_reviews = projects.find(project => project.name === 'Code Reviews');
             if (!code_reviews) {
               console.error("'Code Reviews' project not found!")
               return
