@@ -42,11 +42,7 @@ jobs:
               return
             }
 
-            columns.forEach(column => {
-              if (column.name !== 'Initial Review' && column.name !== 'Final Review') {
-                return // no reason to search through other columns and avoids unnecessary API calls
-              }
-
+            const move_card_in_column = async (column) => {
               const cards = await github.paginate(github.rest.projects.listCards, {
                 column_id: column.id,
               })
@@ -60,11 +56,17 @@ jobs:
                 return // the PR card is not in this column
               }
 
-              github.rest.projects.moveCard({
+              await github.rest.projects.moveCard({
                 card_id: card.id,
                 position: 'bottom',
                 column_id: work_in_progress.id,
-              }).catch(error => {
-                console.error(`Error occured while moving card to 'Work In Progress': ${error}`)
               })
+            }
+
+            columns.forEach(column => {
+              if (column.name !== 'Initial Review' && column.name !== 'Final Review') {
+                return // no reason to search through other columns and avoids unnecessary API calls
+              }
+
+              await move_card_in_column(column)
             })
