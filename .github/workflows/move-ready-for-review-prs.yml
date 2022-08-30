@@ -36,13 +36,13 @@ jobs:
               project_id: code_reviews.id,
             });
 
-            const work_in_progress = columns.data.find(column => column.name === 'Work In Progress')
+            const work_in_progress = columns.find(column => column.name === 'Work In Progress')
             if (!work_in_progress) {
               console.error("'Work In Progress' column not found!")
               return
             }
 
-            const initial_review = columns.data.find(column => column.name === 'Initial Review')
+            const initial_review = columns.find(column => column.name === 'Initial Review')
             if (!initial_review) {
               console.error("'Initial Review' column not found!")
               return
