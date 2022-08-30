@@ -32,7 +32,7 @@ jobs:
             // Find "Initial Review" column manually by name matching
             // This assumes the card is in "Work In Progress" column
             // This avoids hardcoding the column ID and card ID
-            const columns = await github.rest.projects.listColumns({
+            const columns = await github.paginate(github.rest.projects.listColumns, {
               project_id: code_reviews.id,
             });
 
