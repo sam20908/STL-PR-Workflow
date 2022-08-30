@@ -19,7 +19,7 @@ jobs:
           script: |
             // Find "Code Reviews" project manually by name matching
             // This avoids hardcoding the project ID
-            const projects = await github.rest.projects.listForRepo({
+            const projects = await github.paginate(github.rest.projects.listForRepo, {
               owner: context.repo.owner,
               repo: context.repo.repo,
             })
@@ -48,14 +48,9 @@ jobs:
               return
             }
 
-            const work_in_progress_cards = await github.rest.projects.listCards({
-              column_id: work_in_progress.id,
-            })
-            
             const pr_card = await github.paginate(github.rest.projects.listCards, {
               column_id: work_in_progress.id,
             }).then(cards => cards.find(card => card.content_url === context.payload.issue.url))
-            console.log(pr_card)
             if (!pr_card) {
               console.error("Corresponding card for PR not found!")
               return
