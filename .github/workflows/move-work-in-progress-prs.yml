@@ -68,5 +68,7 @@ jobs:
                 return // no reason to search through other columns and avoids unnecessary API calls
               }
 
-              await move_card_in_column(column)
+              move_card_in_column(column).catch(error => {
+                console.error(`Error occured while moving card to 'Work In Progress': ${error}`)
+              })
             })
