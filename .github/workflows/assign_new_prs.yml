@@ -11,20 +11,20 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
-  add-new-prs-to-code-review:
+  initial-review:
     if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
-    name: Assign New PR To Initial Review
+    name: Initial Review
     steps:
     - name: Assign the New Pull Request
       uses: srggrs/assign-one-project-github-action@1.2.1
       with:
         project: 'https://github.com/sam20908/STL-PR-Workflow/projects/1'
         column_name: 'Initial Review'
-  add-new-draft-prs-to-code-review:
+  work-in-progress:
     if: github.event.pull_request.draft == true
     runs-on: ubuntu-latest
-    name: Assign New Draft PR To Work In Progress
+    name: Work In Progress
     steps:
     - name: Assign the New Pull Request
       uses: srggrs/assign-one-project-github-action@1.2.1
