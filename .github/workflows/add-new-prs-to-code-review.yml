@@ -1,0 +1,22 @@
+# Copyright (c) Microsoft Corporation.
+# SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+
+name: Move PR To Initial Review
+on:
+  pull_request:
+    types: [opened]
+    branch:
+      - main
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  add-new-prs-to-code-review:
+    runs-on: ubuntu-latest
+    name: Assign to Code Review
+    steps:
+    - name: Assign the New Pull Request
+      uses: srggrs/assign-one-project-github-action@1.2.1
+      with:
+        project: 'https://github.com/sam20908/STL-PR-Workflow/projects/1'
+        column_name: 'Initial Review'
